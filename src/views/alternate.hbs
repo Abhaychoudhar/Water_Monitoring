@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThingSpeak IoT Data</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-out;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    h3 {
+      font-weight: 400;
+      color: #fff;
+      margin: 10px 0;
+      letter-spacing: 1px;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    h3:hover {
+      color: #e3f2fd;
+      transform: scale(1.05);
+    }
+
+    ul {
+      margin-top: 15px;
+      list-style: none;
+    }
+
+    li {
+      background-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 12px;
+      margin: 5px 0;
+      border-radius: 8px;
+      transition: background 0.4s, transform 0.3s;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    li::before {
+      content: "💧";
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    li:hover {
+      background-color: rgba(255, 255, 255, 0.6);
+      transform: scale(1.05);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      animation: slideIn 1.2s ease-out;
+    }
+
+    th, td {
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 12px;
+      text-align: center;
+      color: #fff;
+      transition: background 0.4s;
+    }
+
+    th {
+      background-color: rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+    }
+
+    td:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      color: #1e3c72;
+      background-color: #fff;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s;
+    }
+
+    a:hover {
+      background-color: #1e3c72;
+      color: #fff;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      transform: scale(1.05);
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Real-Time IoT Data from ThingSpeak</h1>
+
+    <h3>Water Quality Index: {{waterQualityIndex}}</h3>
+    <h3>Latest pH: {{avgPH}}</h3>
+    <h3>Latest Dissolved Oxygen (DO): {{avgDO}} mg/L</h3>
+    <h3>Latest Temp: {{avgTE}} °C</h3>
+    <h3>Latest Turbidity: {{avgTUR}} NTU</h3>
+
+    <h3>Alternate Uses of Water:</h3>
+    <ul>
+      {{#each alternateUses}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+
+    <a href="/thingspeak">Home Page</a>
+
+    <script>
+      // Auto-refresh the page every 5 seconds to get the latest data
+      setInterval(() => {
+        window.location.reload();
+      }, 5000);
+    </script>
+  </div>
+</body>
+</html>
